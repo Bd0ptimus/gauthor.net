@@ -18,7 +18,7 @@
 	<div id="page" >
         @include('layouts.navbar1')
 
-		<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url({{env('APP_URL')}}/loving-web/public/front/images/img_bg_2.jpg)"
+		<header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url({{asset('front/images/img_bg_2.jpg')}}"
 			data-stellar-background-ratio="0.5">
 			<div class="overlay"></div>
 			<div class="container" >
@@ -65,7 +65,7 @@
 				<div class="couple-wrap animate-box">
 					<div class="couple-half">
 						<div class="groom">
-							<img src="{{env('APP_URL')}}/loving-web/public/front/images/groom.jpg" alt="groom" class="img-responsive">
+							<img src="{{asset('front/images/groom.jpg')}}" alt="groom" class="img-responsive">
 						</div>
 						<div class="desc-groom">
 							<h3>Bùi Thế Dũng</h3>
@@ -86,7 +86,7 @@
 			</div>
 		</div>
 
-		<div id="fh5co-event" class="fh5co-bg" style="background-image:url({{env('APP_URL')}}/loving-web/public/front/images/img_bg_3.jpg);">
+		<div id="fh5co-event" class="fh5co-bg" style="background-image:url({{asset('front/images/img_bg_3.jpg')}}">
 			<div class="overlay"></div>
 			<div class="container">
 				<div class="row">
@@ -154,7 +154,7 @@
 					<div class="col-md-12 col-md-offset-0">
 						<ul class="timeline animate-box">
 							<li class="animate-box">
-								<div class="timeline-badge" style="background-image:url({{env('APP_URL')}}/loving-web/public/front/images/couple-1.jpg);"></div>
+								<div class="timeline-badge" style="background-image:url({{asset('front/images/couple-1.jpg')}}"></div>
 								<div class="timeline-panel">
 									<div class="timeline-heading">
 										<h3 class="timeline-title">Lần đầu chúng ta làm quen</h3>
@@ -169,7 +169,7 @@
 							</li>
 
 							<li class="animate-box">
-								<div class="timeline-badge" style="background-image:url({{env('APP_URL')}}/loving-web/public/front/images/couple-1.jpg);"></div>
+								<div class="timeline-badge" style="background-image:url({{asset('front/images/couple-1.jpg')}}"></div>
 								<div class="timeline-panel">
 									<div class="timeline-heading">
 										<h3 class="timeline-title">Yêu nhau lần 1</h3>
@@ -184,7 +184,7 @@
 							</li>
 
 							<li class="animate-box">
-								<div class="timeline-badge" style="background-image:url({{env('APP_URL')}}/loving-web/public/front/images/couple-1.jpg);"></div>
+								<div class="timeline-badge" style="background-image:url({{asset('front/images/couple-1.jpg')}}"></div>
 								<div class="timeline-panel">
 									<div class="timeline-heading">
 										<h3 class="timeline-title">Chia tay và quay lại</h3>
@@ -199,7 +199,7 @@
 							</li>
 
 							<li class="animate-box">
-								<div class="timeline-badge" style="background-image:url({{env('APP_URL')}}/loving-web/public/front/images/couple-1.jpg);"></div>
+								<div class="timeline-badge" style="background-image:url({{asset('front/images/couple-1.jpg')}}"></div>
 								<div class="timeline-panel">
 									<div class="timeline-heading">
 										<h3 class="timeline-title">Lại trở về bên nhau</h3>
@@ -218,7 +218,7 @@
 			</div>
 		</div>
 
-		<div id="fh5co-gallery"  style="background-image:url({{env('APP_URL')}}/loving-web/public/front/images/img_bg_5.jpg);"> <!--class="fh5co-section-gray"-->
+		<div id="fh5co-gallery"  style="background-image:url({{asset('front/images/img_bg_5.jpg')}}"> <!--class="fh5co-section-gray"-->
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
@@ -232,7 +232,7 @@
 						<ul id="fh5co-gallery-list">
 
 							<li class="one-third animate-box" data-animate-effect="fadeIn"
-								style="background-image: url({{env('APP_URL')}}/loving-web/public//front/images/gallery-1.jpg); ">
+								style="background-image: url({{asset('front/images/gallery-1.jpg')}} ">
 								<a href="images/gallery-1.jpg">
 									<div class="case-studies-summary">
 										<span>14 Photos</span>
@@ -241,7 +241,7 @@
 								</a>
 							</li>
 							<li class="one-third animate-box" data-animate-effect="fadeIn"
-								style="background-image: url({{env('APP_URL')}}/loving-web/public/front/images/gallery-1.jpg);">
+								style="background-image: url({{asset('front/images/gallery-1.jpg')}}">
 								<a href="#" class="color-2">
 									<div class="case-studies-summary">
 										<span>30 Photos</span>
@@ -362,7 +362,7 @@
 		</div>
 
 
-		<div id="fh5co-started" class="fh5co-bg" style="background-image:url({{env('APP_URL')}}/loving-web/public/front/images/img_bg_4.jpg);">
+		<div id="fh5co-started" class="fh5co-bg" style="background-image:url({{asset('front/images/img_bg_4.jpg')}}">
 			<div class="overlay"></div>
 			<div class="container">
 				<div class="row animate-box">
