@@ -75,7 +75,7 @@
 					<p class="heart text-center"><i class="fa-solid fa-heart" style="color:red;"></i></p>
 					<div class="couple-half">
 						<div class="bride">
-							<img src="{{env('APP_URL')}}/loving-web/public/front/images/bride.jpg" alt="groom" class="img-responsive">
+							<img src="{{asset('front/images/bride.jpg')}}" alt="groom" class="img-responsive">
 						</div>
 						<div class="desc-bride">
 							<h3>Lê Minh Hằng</h3>
