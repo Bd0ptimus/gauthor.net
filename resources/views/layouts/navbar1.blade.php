@@ -1,6 +1,6 @@
 <div class="Navbar_container" style="background-image:url('{{env('APP_URL')}}/loving-web/public/front/images/img_bg_2.jpg')">
     <div class="Navbar__Link Navbar__Link-brand">
-        <img src="{{aaset('storage/icons/bear-icon.png')}}">
+        <img src="{{asset('storage/icons/bear-icon.png')}}">
         <img src="{{asset('storage/icons/heart-icon.png')}}">
         <img src="{{asset('storage/icons/rabbit-icon.png')}}">
     </div>
