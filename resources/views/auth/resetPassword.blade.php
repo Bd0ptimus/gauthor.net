@@ -11,7 +11,7 @@
             <div class="container-login100">
                 <div class="wrap-login100">
                     <div class="login100-pic js-tilt" data-tilt>
-                        <img src="{{ asset('front/images/icons/login-icon/login.jpg') }}" alt="IMG">
+                        <img src="{{asset('storage/icons/logo.png')}}" alt="IMG">
                     </div>
 
                     <form class="login100-form validate-form" name="password" action="{{ route('auth.forgot.setpassword',['id'=> $user->id]) }}" method="post" enctype="multipart/form-data"> @csrf

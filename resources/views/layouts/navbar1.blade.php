@@ -1,11 +1,11 @@
-<div class="Navbar_container" style="background-image:url('{{env('APP_URL')}}/loving-web/public/front/images/img_bg_2.jpg')">
+<div class="Navbar_container" style="background-image:url('{{asset('front/images/img_bg_2.jpg')}}">
     <div class="Navbar__Link Navbar__Link-brand">
-        <img src="{{asset('front/images/icons/bear-icon/web/32.png')}}">
+        {{-- <img src="{{asset('front/images/icons/bear-icon/web/32.png')}}">
         <img src="{{asset('front/images/icons/heart-icon/web/32.png')}}">
-        <img src="{{asset('front/images/icons/rabbit-icon/web/32.png')}}">
-        {{-- <img src="{{asset('storage/icons/bear-icon.png')}}">
+        <img src="{{asset('front/images/icons/rabbit-icon/web/32.png')}}"> --}}
+        <img src="{{asset('storage/icons/bear-icon.png')}}">
         <img src="{{asset('storage/icons/heart-icon.png')}}">
-        <img src="{{asset('storage/icons/rabbit-icon.png')}}"> --}}
+        <img src="{{asset('storage/icons/rabbit-icon.png')}}">
     </div>
     <div class="Navbar__Link Navbar__Link-toggle" onclick="classToggle()">
         <i class="fas fa-bars fa-2xl" style="margin-top:15px;"></i>
