@@ -1,11 +1,12 @@
-@include('layouts.navbar1')
+<!DOCTYPE html>
+<html class="no-js">
 @include('layouts.layoutMaster')
 @include('layouts.profile.profileLayoutsStyle')
-
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
+@include('layouts.loadingScreen')
 
 <body class="profile-page">
+    @include('layouts.navbar1')
+
     <!--page-header header-filter   profile-page-->
     <div class="profile-header" data-parallax="true"
         style="background-image:url('http://wallpapere.org/wp-content/uploads/2012/02/black-and-white-city-night.png');"
@@ -20,7 +21,7 @@
                             <div class="avatar">
                                 {{-- <img src="{{asset('front/images/icons/login-icon/login.jpg')}}"
                                     alt="Circle Image" class="img-raised rounded-circle img-fluid"> --}}
-                                <img src="{{ asset(isset($userAvatar)?$userAvatar->img_path:'') }}" alt="100x100"
+                                <img src="{{ asset(isset($userAvatar) ? $userAvatar->img_path : '') }}" alt="100x100"
                                     id="profile-avatar" data-holder-rendered="true">
                             </div>
                             <div class="name">
@@ -38,28 +39,32 @@
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile-tabs">
                             <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active pe-auto" id="darling-btn" role="tab" data-toggle="tab"
-                                        style="height:100%; width: 120px;">
-                                        <i class="fa-solid fa-heart fa-xl my-4"></i>
-                                        Người iu nè
-                                    </a>
-                                </li>
-                                <li class="nav-item pe-auto">
-                                    <a class="nav-link pe-auto" id="picture-btn" role="tab" data-toggle="tab"
-                                        style="height:100%; width: 120px;">
-                                        <i class="fa-solid fa-image fa-xl my-4"></i>
-                                        Ảnh nè
-                                    </a>
-                                </li>
-                                <li class="nav-item" id="setting-container">
-                                    <a id="setting-modal-open" class="nav-link pe-auto" role="tab" data-toggle="tab"
-                                        style="height:100%; width: 120px;">
-                                        <!--href="#favorite" data-target="#modalLessonSampleContent"-->
-                                            <i class="fa-sharp fa-solid fa-gear fa-xl my-4" id="info-setting"></i>
-                                            Thay đổi thông tin
-                                    </a>
-                                </li>
+                                @if($darlingOnWatching == false)
+                                    <li class="nav-item">
+                                        <a class="nav-link active pe-auto" id="darling-btn" role="tab" data-toggle="tab"
+                                            style="height:100%; width: 120px;">
+                                            <i class="fa-solid fa-heart fa-xl my-4"></i>
+                                            Người iu nè
+                                        </a>
+                                    </li>
+                                    <li class="nav-item pe-auto">
+                                        <a class="nav-link pe-auto" id="picture-btn" role="tab" data-toggle="tab"
+                                            style="height:100%; width: 120px;">
+                                            <i class="fa-solid fa-image fa-xl my-4"></i>
+                                            Ảnh nè
+                                        </a>
+                                    </li>
+                                    <li class="nav-item" id="setting-container">
+                                        <a id="setting-modal-open" class="nav-link pe-auto" role="tab" data-toggle="tab"
+                                            style="height:100%; width: 120px;">
+                                            <!--href="#favorite" data-target="#modalLessonSampleContent"-->
+                                                <i class="fa-sharp fa-solid fa-gear fa-xl my-4" id="info-setting"></i>
+                                                Thay đổi thông tin
+                                        </a>
+                                    </li>
+                                @endif
+
+
                             </ul>
                         </div>
                     </div>
@@ -67,7 +72,26 @@
 
 
                 <div class="tab-content tab-space">
-                    <div class="tab-pane active text-center gallery" id="picture" style="display:none;">
+                    @if($darlingOnWatching == false)
+                    <div class="tab-pane active text-center darling " id="darling" style="display:block;">
+
+                        <a class="row d-flex justify-content-center m-auto" id="darling-row" style="max-width:500px;" href="{{route('profile.darling',['darling_id'=>$darlingProfile->id])}}">
+                            <div id="darling-avatar-section" style="height:100%; width:40%;">
+                                <span class="vertical-helper" ></span>
+                                <img class="align-middle" src="{{ asset(isset($darlingAvatar) ? $darlingAvatar->img_path : '') }}" alt="100x100"
+                                    id="darling-avatar" data-holder-rendered="true" >
+                            </div>
+                            <div id="darling-info-section m-auto" style="height:100%; width:60%; display:table;">
+                                <div class="align-middle" style="margin:auto; display:table-cell; vertical-align:middle;">
+                                    <p style="margin:5px auto;">{{$darlingProfile->name}}</p>
+                                    <p style="margin:5px auto;">{{$darlingProfile->quote}}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    @endif
+
+                    <div class="tab-pane active text-center gallery" id="picture"  @if($darlingOnWatching) style="display:block;" @else style="display:none;" @endif>
                         <div class="row">
                             <div class="col-md-3 ml-auto">
                                 <img src="{{ asset('front/images/icons/login-icon/login.jpg') }}" class="rounded">
@@ -81,6 +105,7 @@
                             </div>
                         </div>
                     </div>
+
                     {{-- <div class="tab-pane text-center gallery" id="works">
                         <div class="row">
                             <div class="col-md-3 ml-auto">
@@ -132,6 +157,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js">
     </script>
     <script>
+        $(document).ready(function(){
+            $('#loading').hide();
+        });
+
         $('#setting-modal-close').on('click', function(e) {
             console.log('modal-close');
             $('#setting-modal-container').modal('hide');
@@ -145,6 +174,7 @@
 
         $('#darling-btn').on('click', function() {
             $('.tab-pane').css('display', 'none');
+            $('#darling').css('display', 'block');
         });
 
         $('#picture-btn').on('click', function() {
@@ -161,7 +191,7 @@
 
         window.addEventListener('user-avatar-updated', event => {
             $('#accept-avatar-modal').modal('show');
-            $('#accept-avatar-show').attr('src',event.detail.avatarData['avatar']);
+            $('#accept-avatar-show').attr('src', event.detail.avatarData['avatar']);
             $('#accept-avatar-modal-title').text(event.detail.avatarData['modal-title']);
 
         });
@@ -176,9 +206,11 @@
 
         })
 
-        $('#upload-avatar-btn').on('click', function(e){
+        $('#upload-avatar-btn').on('click', function(e) {
             Livewire.emit('avatarUploaded');
         });
     </script>
 
 </body>
+
+</html>

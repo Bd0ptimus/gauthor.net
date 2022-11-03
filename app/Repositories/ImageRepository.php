@@ -37,10 +37,12 @@ class ImageRepository //extends BaseRepository
             'img_type'=>IMAGE_AVATAR,
             ]
         )->first();
+        if($currentAvatar){
+            $currentAvatar->update([
+                'img_type'=>IMAGE_PERSONAL,
+            ]);
+        }
 
-        $currentAvatar->update([
-            'img_type'=>IMAGE_PERSONAL,
-        ]);
         return $this->model->create([
             'user_id'=>$userId,
             'img_path'=>'storage/'.explode('/',$imageNewPath)[1],

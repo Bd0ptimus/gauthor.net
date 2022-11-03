@@ -2,6 +2,8 @@
 <html class="no-js">
 @include('layouts.layoutMaster')
 @include('layouts.auth.authLayoutsStyle')
+@include('layouts.loadingScreen')
+
 <body>
 
 
@@ -76,6 +78,11 @@
     </div>
     @extends('layouts.footer')
     @include('layouts.auth.authLayoutsScript')
-
+    <script>
+        $(document).ready(function(){
+            // setTimeout(function() { $('#loading').hide(); }, 1000);
+            $('#loading').hide();
+        });
+    </script>
 </body>
 </html>
