@@ -31,7 +31,8 @@
                         <div class="upload-btn-wrapper" >
                             <button class="info-settting-upload-btn">Upload ảnh</button>
                             <input type="file" wire:model="photoUpload"  accept=".jpg, .jpeg, .png, .mov"/>
-                            <div wire:loading wire:target="photoUpload" >Uploading...</div>
+                            {{-- <img style="width:30px; height:30px;" src="{{asset('storage/icons/image-loading.gif')}}"> --}}
+                            <div wire:loading wire:target="photoUpload" ><img style="width:20px; height:20px;" src="{{asset('storage/icons/image-loading.gif')}}"></div>
                         </div>
                     </div>
                 </form>
@@ -104,6 +105,9 @@
 
 
     <style>
+        #setting-modal-container{
+            border-radius: 6px;
+        }
         .modal-btn {
             background-color: #ff64b8;
             color: white;
