@@ -9,3 +9,6 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+/db-store
+/storage
+/public/storage
