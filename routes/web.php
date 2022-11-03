@@ -25,16 +25,21 @@ require_once 'component/profile/profile.php';
 
 Route::get('/', function(){ /*\Auth::guard('admin')->logout();*/ return view('main'); })->name('main');
 
+Route::get('/storage-link', function(){
+    $targetFolder = storage_path('app/public');
+    $linkFolder = public_path('storage');
+    symlink($targetFolder, $linkFolder);
+});
 
-Route::get('/setpass', [
-    Util::class,
-    'addPasswordForAdmin'
-]);
+// Route::get('/setpass', [
+//     Util::class,
+//     'addPasswordForAdmin'
+// ]);
 
 
-Route::get('/testprofile', function(){ return view('profile.index'); })->name('profile');
-Route::get('/testmailui', function(){ return view('auth.mail.mailInterface'); });
-Route::get('/testsetting', function(){ return view('templates.settings.infoSetting'); });
+// Route::get('/testprofile', function(){ return view('profile.index'); })->name('profile');
+// Route::get('/testmailui', function(){ return view('auth.mail.mailInterface'); });
+// Route::get('/testsetting', function(){ return view('templates.settings.infoSetting'); });
 
 
 
