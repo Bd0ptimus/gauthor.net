@@ -3,6 +3,7 @@
 @include('layouts.layoutMaster')
 @include('layouts.profile.profileLayoutsStyle')
 @include('layouts.loadingScreen')
+@include('layouts.uploadingScreen')
 
 <body class="profile-page">
     @include('layouts.navbar1')
@@ -159,7 +160,13 @@
     <script>
         $(document).ready(function(){
             $('#loading').hide();
+
         });
+
+        function startUploadImage(){
+            $('#uploading').show();
+
+        }
 
         $('#setting-modal-close').on('click', function(e) {
             console.log('modal-close');
@@ -189,10 +196,17 @@
             $('#user-quote').text(event.detail.user['quote']);
         });
 
-        window.addEventListener('user-avatar-updated', event => {
+        window.addEventListener('user-avatar-in-uploading-process', event => {
+            console.log('in uploading event');
+            $('#uploading').attr('display', 'block');
+
+        });
+
+        window.addEventListener('user-avatar-updated', (event) => {
             $('#accept-avatar-modal').modal('show');
             $('#accept-avatar-show').attr('src', event.detail.avatarData['avatar']);
             $('#accept-avatar-modal-title').text(event.detail.avatarData['modal-title']);
+            $('#uploading').hide();
 
         });
 
