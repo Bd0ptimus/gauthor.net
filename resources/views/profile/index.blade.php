@@ -163,11 +163,6 @@
 
         });
 
-        function startUploadImage(){
-            $('#uploading').show();
-
-        }
-
         $('#setting-modal-close').on('click', function(e) {
             console.log('modal-close');
             $('#setting-modal-container').modal('hide');
@@ -194,12 +189,6 @@
             $('#user-nickname').text(event.detail.user['nickname']);
             $('#user-dob').text(event.detail.user['dob']);
             $('#user-quote').text(event.detail.user['quote']);
-        });
-
-        window.addEventListener('user-avatar-in-uploading-process', event => {
-            console.log('in uploading event');
-            $('#uploading').attr('display', 'block');
-
         });
 
         window.addEventListener('user-avatar-updated', (event) => {

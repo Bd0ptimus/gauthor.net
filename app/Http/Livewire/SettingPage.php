@@ -54,9 +54,7 @@ class SettingPage extends Component
                 'photoUpload.max'=>'Chọn ảnh khác nào chứ ảnh này lớn quá',
             ]
         );
-        // dd($this->photoUpload);
         $data['avatar']=$this->photoUpload->temporaryUrl();
-        // dd($data['avatar']);
         $data['modal-title']='Xem nè, có phải '.$this->userNickname.' muốn update avatar này không?';
         $this->dispatchBrowserEvent('user-avatar-updated', ['avatarData'=>$data]);
     }

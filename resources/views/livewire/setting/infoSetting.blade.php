@@ -27,22 +27,19 @@
                     </div>
                 </div>
                 <form> @csrf
-                    <div class="row d-flex justify-content-center" >
-                        <div class="upload-btn-wrapper" >
+                    <div class="row d-flex justify-content-center">
+                        <div class="upload-btn-wrapper">
                             <button class="info-settting-upload-btn">Upload ảnh</button>
-                            <input type="file" wire:model="photoUpload"  accept=".jpg, .jpeg, .png, .mov" onchange="startUploadImage()"/>
-                            {{-- <img style="width:30px; height:30px;" src="{{asset('storage/icons/image-loading.gif')}}"> --}}
-                            {{-- <div wire:loading wire:target="photoUpload" ><img style="width:20px; height:20px;" src="{{asset('storage/icons/image-loading.gif')}}"></div> --}}
+                            <input type="file" wire:model="photoUpload" accept=".jpg, .jpeg, .png, .mov"/>
+                            <div wire:loading wire:target="photoUpload">
+                                <!--Upload image loading screen-->
+                                @include('layouts.loadingModalWithLivewire')
+                            </div>
                         </div>
                     </div>
                 </form>
 
                 <form wire:submit.prevent="saveUserInfo"> @csrf
-                    {{-- <link rel="stylesheet"
-                        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
-
-
-                    {{-- <input type="file" wire:model="photo"> --}}
                     <div class="row my-2" style="height:30px;">
                         <div class="col-xs-4 h-100 m-0" style="display:block; justify-content: center;">
                             <h5 class="mt-3">Họ tên nè </h5>
@@ -105,9 +102,10 @@
 
 
     <style>
-        #setting-modal-container{
+        #setting-modal-container {
             border-radius: 6px;
         }
+
         .modal-btn {
             background-color: #ff64b8;
             color: white;
@@ -167,7 +165,8 @@
                 </div>
 
                 <div class="modal-footer d-flex justify-content-center">
-                    <button id="upload-avatar-btn" type="button" class="btn modal-btn">Đặt ảnh này làm avatar</button>
+                    <button id="upload-avatar-btn" type="button" class="btn modal-btn">Đặt ảnh này làm
+                        avatar</button>
                 </div>
 
 
