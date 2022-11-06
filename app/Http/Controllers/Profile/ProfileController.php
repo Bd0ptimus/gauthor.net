@@ -52,10 +52,12 @@ class ProfileController extends BaseController
             $userProfile = $this->userService->userProfileService($darlingId);
             $userAvatar = $this->imgService->takeAvatar($userProfile->id);
             $userProfile->dob = Util::fixdate($userProfile->dob);
+            $userImages = $userProfile->images;
             return view('profile.index',[
                 'userProfile'=> $userProfile,
                 'userAvatar'=>$userAvatar??null,
                 'darlingOnWatching'=> true,
+                'userImages'=>$userImages,
             ]);
         }
     }
