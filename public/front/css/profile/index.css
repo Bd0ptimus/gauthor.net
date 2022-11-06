@@ -166,6 +166,69 @@ a .material-icons {
     color:#ff64b8;
 }
 
+.img-container{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: black;
+    overflow: hidden;
+}
+
+.img-container:hover{
+    cursor: pointer;
+}
+
+.img-container img{
+    flex-shrink: 0;
+    height: 100%;
+    margin-bottom:0px;
+    object-fit: cover;
+}
+
+.img-title-sec{
+    position: absolute;
+    margin: 0px 1px;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(25, 30, 32, 0.72);
+    color: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .2s, visibility .2s;
+    cursor: pointer;
+}
+
+.img-container:hover .img-title-sec{
+    visibility: visible;
+    opacity: 1;
+}
+
+.img-container:hover img{
+    transition: 0.8s;
+    transform: scale(1.2);
+    transform-origin: 50% 50%;
+}
+
+.img-float-title-container{
+    position: absolute;
+    margin:50% 10% 0px;
+    width:80%;
+    height : auto;
+}
+
+.img-title{
+    line-height: 15px;
+    font-family: arial,sans-serif;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
 
 @media (max-width:5000px){
     #darling-row{
@@ -176,6 +239,18 @@ a .material-icons {
         width: 120px;
         border-radius: 50%;
     }
+
+    .img-container{
+        height : 200px;
+        width: 13%;
+        margin : 10px 0.5%;
+
+    }
+
+    .img-title{
+        font-size: 13px;
+    }
+
 }
 
 @media (max-width:1020px){
@@ -187,6 +262,15 @@ a .material-icons {
         width: 80px;
         border-radius: 50%;
     }
+    .img-container{
+        height : 180px;
+        width: 18%;
+        margin : 10px 1%;
+
+    }
+    .img-title{
+        font-size: 12px;
+    }
 }
 
 @media (max-width:768px){
@@ -197,6 +281,26 @@ a .material-icons {
         height: 70px;
         width: 70px;
         border-radius: 50%;
+    }
+    .img-container{
+        height : 150px;
+        width: 23%;
+        margin : 10px 0.9%;
+    }
+    .img-title{
+        font-size: 11px;
+    }
+}
+
+@media (max-width:500px){
+    .img-container{
+        height : 150px;
+        width: 30%;
+        margin : 10px 1.5%;
+    }
+
+    .img-title{
+        font-size: 11px;
     }
 }
 
@@ -476,4 +580,5 @@ footer p a:hover {
     color: #9f26aa;
     text-decoration: none;
 }
+
 

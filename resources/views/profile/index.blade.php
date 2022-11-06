@@ -94,16 +94,18 @@
 
                     <div class="tab-pane active text-center gallery" id="picture"  @if($darlingOnWatching) style="display:block;" @else style="display:none;" @endif>
                         <div class="row">
-                            <div class="col-md-3 ml-auto">
-                                <img src="{{ asset('front/images/icons/login-icon/login.jpg') }}" class="rounded">
-                                <img src="{{ asset('front/images/icons/login-icon/login.jpg') }}" class="rounded">
-                            </div>
-                            <div class="col-md-3 mr-auto">
-                                <img src="{{ asset('front/images/icons/login-icon/login.jpg') }}" class="rounded">
-
-                                <img src="{{ asset('front/images/icons/login-icon/login.jpg') }}" class="rounded">
-
-                            </div>
+                            @foreach($userImages as $image)
+                                <div class="img-container">
+                                    <img class="rounded" src="{{ asset($image->img_path) }}" style="margin-bottom:0px;">
+                                    <div class="img-title-sec">
+                                        <div class="img-float-title-container">
+                                            <p class="img-title">
+                                                {{$image->status}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
 

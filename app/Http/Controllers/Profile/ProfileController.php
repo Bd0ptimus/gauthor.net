@@ -32,6 +32,7 @@ class ProfileController extends BaseController
             $userProfile->dob = Util::fixdate($userProfile->dob);
             $userAvatar = $this->imgService->takeAvatar($userProfile->id);
             $darlingAvatar = $this->imgService->takeAvatar($userProfile->darling_id);
+            $userImages = $userProfile->images;
             // dd(storage_path('app/public'));
             return view('profile.index',[
                 'userProfile'=> $userProfile,
@@ -39,6 +40,7 @@ class ProfileController extends BaseController
                 'userAvatar'=>$userAvatar??null,
                 'darlingAvatar' =>$darlingAvatar??null,
                 'darlingOnWatching'=> false,
+                'userImages'=>$userImages,
 
             ]); //->with(['userProfile'=> $userProfile,'userAvatar'=>$userAvatar]);
         }
