@@ -96,7 +96,7 @@
                         <div class="row">
                             @foreach($userImages as $image)
                                 <div class="img-container">
-                                    <img class="rounded" src="{{ asset($image->img_path) }}" style="margin-bottom:0px;">
+                                    <img class="rounded" src="{{ asset($image->img_path) }}" style="margin-bottom:0px;" alt="personal image">
                                     <div class="img-title-sec">
                                         <div class="img-float-title-container">
                                             <p class="img-title">
