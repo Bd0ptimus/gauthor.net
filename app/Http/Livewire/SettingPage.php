@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Helper\Util;
 //Services
 use App\Services\ImageService;
+use App\Services\UserService;
+
 
 //Models
 use App\Models\User;
@@ -18,6 +20,8 @@ class SettingPage extends Component
 {
     use WithFileUploads;
     protected $imageService;
+    protected $userService;
+
 
 
     public $userName;
@@ -30,8 +34,10 @@ class SettingPage extends Component
 
     protected $listeners = ['avatarUploaded' => 'uploadAvatar'];
 
-    public function boot(ImageService $imageService){
+    public function boot(ImageService $imageService,
+    UserService $userService){
         $this->imageService = $imageService;
+        $this->userService = $userService;
     }
 
     public function init(){
@@ -63,8 +69,10 @@ class SettingPage extends Component
         $photoName = $this->photoUpload->store('public');
         $this->userAvatar =$this->imageService->setAvatar(Admin::user()->id,$photoName );
         $data['avatar_url']=asset($this->userAvatar->img_path);
+        $userImages = $this->userService->userProfileService(Admin::user()->id)->images;
+
         // dd($data['avatar']);
-        $this->dispatchBrowserEvent('user-avatar-updated-complete', ['avatarData'=>$data]);
+        $this->dispatchBrowserEvent('user-avatar-updated-complete', ['avatarData'=>$data, 'userImages'=>$userImages]);
     }
 
     public function saveUserInfo(){

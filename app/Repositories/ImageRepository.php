@@ -50,4 +50,8 @@ class ImageRepository //extends BaseRepository
         ]);
     }
 
+    public function deleteImage($imageId){
+        $this->model->find($imageId)->delete();
+    }
+
 }

@@ -24,6 +24,11 @@ class ImageService
         $this->imgRepo = $imgRepo;
     }
 
+    public function deleteImage($imageId){
+        $this->imgRepo->deleteImage($imageId);
+
+    }
+
     public function takeAvatar($userId){
         return $this->imgRepo->takeAvatar($userId);
     }

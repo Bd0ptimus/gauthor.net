@@ -166,6 +166,16 @@ a .material-icons {
     color:#ff64b8;
 }
 
+.darling-row-text{
+    margin:5px auto;
+    color:black;
+}
+
+#darling-row:hover .darling-row-text{
+    color:#ff64b8;
+
+}
+
 .img-container{
     position: relative;
     display: flex;
@@ -201,6 +211,26 @@ a .material-icons {
     opacity: 0;
     transition: opacity .2s, visibility .2s;
     cursor: pointer;
+}
+
+.delete-icon{
+    position: absolute;
+    bottom: 15px;
+    right: 5px;
+    color: #fff;
+    visibility: hidden;
+    transition: opacity .2s, visibility .2s;
+    cursor: pointer;
+}
+
+.delete-icon:hover{
+    color : #ff64b8;
+    transition: 0.8s;;
+}
+
+.img-container:hover .delete-icon{
+    visibility: visible;
+    opacity: 1;
 }
 
 .img-container:hover .img-title-sec{

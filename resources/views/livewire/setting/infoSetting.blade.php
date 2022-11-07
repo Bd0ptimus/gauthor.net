@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-xs-7 h-100 m-0">
                             <input required wire:model="userName" maxlength="25" type="text"
-                                class="form-control h-100" />
+                                class="form-control h-100" style="border:0px;"/>
                         </div>
                     </div>
                     <div class="row my-2" style="height:30px;">
@@ -54,7 +54,7 @@
                             <h5 class="mt-3">Biệt danh </h5>
                         </div>
                         <div class="col-xs-7 h-100 m-0">
-                            <input maxlength="55" type="text" class="form-control h-100" wire:model="userNickname" />
+                            <input maxlength="55" type="text" class="form-control h-100" wire:model="userNickname" style="border:0px;"/>
                         </div>
                     </div>
                     <div class="row my-2" style="height:30px;">
@@ -62,7 +62,7 @@
                             <h5 class="mt-3">Ngày sinh </h5>
                         </div>
                         <div class="col-xs-7 h-100 m-0">
-                            <input type="date" class="form-control h-100" required wire:model="userDob">
+                            <input type="date" class="form-control h-100" required wire:model="userDob"  style="border:0px;">
                         </div>
                     </div>
                     <div class="row mt-2" style="height:30px;">
@@ -72,7 +72,7 @@
                     </div>
                     <div class="row d-flex justify-content-center">
                         <div class="col-md-9 h-100">
-                            <textarea class="form-control" rows="3" wire:model="userQuote"></textarea>
+                            <textarea class="form-control" rows="3" wire:model="userQuote"  style="border:0px;"></textarea>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center">
@@ -89,7 +89,7 @@
 
 
                     <div class="modal-footer d-flex justify-content-center">
-                        <button type="submit" type="button" class="btn modal-btn">Lưu thay đổi</button>
+                        <button id="submit-btn" type="submit" type="button" class="btn modal-btn">Lưu thay đổi</button>
                     </div>
                 </form>
 

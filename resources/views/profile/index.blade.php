@@ -6,7 +6,26 @@
 @include('layouts.uploadingScreen')
 
 <body class="profile-page">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
     @include('layouts.navbar1')
+    @include('layouts.toasts.toast')
+
+    <div class="toast toast-color" id="notification" data-delay="3000">
+        <div class="toast-header toast-color">
+            <strong class="mr-auto">SCROLLED!</strong>
+            <small>Just Now</small>
+
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+
+        <div class="toast-body">
+            Hi! You just scrolled the paragaraph.
+        </div>
+    </div>
 
     <!--page-header header-filter   profile-page-->
     <div class="profile-header" data-parallax="true"
@@ -40,10 +59,10 @@
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile-tabs">
                             <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
-                                @if($darlingOnWatching == false)
+                                @if ($darlingOnWatching == false)
                                     <li class="nav-item">
-                                        <a class="nav-link active pe-auto" id="darling-btn" role="tab" data-toggle="tab"
-                                            style="height:100%; width: 120px;">
+                                        <a class="nav-link active pe-auto" id="darling-btn" role="tab"
+                                            data-toggle="tab" style="height:100%; width: 120px;">
                                             <i class="fa-solid fa-heart fa-xl my-4"></i>
                                             Người iu nè
                                         </a>
@@ -56,8 +75,8 @@
                                         </a>
                                     </li>
                                     <li class="nav-item" id="setting-container">
-                                        <a id="setting-modal-open" class="nav-link pe-auto" role="tab" data-toggle="tab"
-                                            style="height:100%; width: 120px;">
+                                        <a id="setting-modal-open" class="nav-link pe-auto" role="tab"
+                                            data-toggle="tab" style="height:100%; width: 120px;">
                                             <!--href="#favorite" data-target="#modalLessonSampleContent"-->
                                                 <i class="fa-sharp fa-solid fa-gear fa-xl my-4" id="info-setting"></i>
                                                 Thay đổi thông tin
@@ -73,36 +92,47 @@
 
 
                 <div class="tab-content tab-space">
-                    @if($darlingOnWatching == false)
-                    <div class="tab-pane active text-center darling " id="darling" style="display:block;">
+                    @if ($darlingOnWatching == false)
+                        <div class="tab-pane active text-center darling " id="darling" style="display:block;">
 
-                        <a class="row d-flex justify-content-center m-auto" id="darling-row" style="max-width:500px;" href="{{route('profile.darling',['darling_id'=>$darlingProfile->id])}}">
-                            <div id="darling-avatar-section" style="height:100%; width:40%;">
-                                <span class="vertical-helper" ></span>
-                                <img class="align-middle" src="{{ asset(isset($darlingAvatar) ? $darlingAvatar->img_path : '') }}" alt="100x100"
-                                    id="darling-avatar" data-holder-rendered="true" >
-                            </div>
-                            <div id="darling-info-section m-auto" style="height:100%; width:60%; display:table;">
-                                <div class="align-middle" style="margin:auto; display:table-cell; vertical-align:middle;">
-                                    <p style="margin:5px auto;">{{$darlingProfile->name}}</p>
-                                    <p style="margin:5px auto;">{{$darlingProfile->quote}}</p>
+                            <a class="row d-flex justify-content-center m-auto" id="darling-row"
+                                style="max-width:500px;"
+                                href="{{ route('profile.darling', ['darling_id' => $darlingProfile->id]) }}">
+                                <div id="darling-avatar-section" style="height:100%; width:40%;">
+                                    <span class="vertical-helper"></span>
+                                    <img class="align-middle"
+                                        src="{{ asset(isset($darlingAvatar) ? $darlingAvatar->img_path : '') }}"
+                                        alt="100x100" id="darling-avatar" data-holder-rendered="true">
                                 </div>
-                            </div>
-                        </a>
-                    </div>
+                                <div id="darling-info-section m-auto" style="height:100%; width:60%; display:table;">
+                                    <div class="align-middle"
+                                        style="margin:auto; display:table-cell; vertical-align:middle;">
+                                        <p class="darling-row-text">{{ $darlingProfile->name }}</p>
+                                        <p class="darling-row-text" >{{ $darlingProfile->quote }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     @endif
 
-                    <div class="tab-pane active text-center gallery" id="picture"  @if($darlingOnWatching) style="display:block;" @else style="display:none;" @endif>
+                    <div class="tab-pane active text-center gallery" id="picture"
+                        @if ($darlingOnWatching) style="display:block;" @else style="display:none;" @endif>
                         <div class="row">
-                            @foreach($userImages as $image)
-                                <div class="img-container">
-                                    <img class="rounded" src="{{ asset($image->img_path) }}" style="margin-bottom:0px;" alt="personal image">
+                            @foreach ($userImages as $image)
+                                <div class="img-container" id="image-{{ $image->id }}">
+                                    <img class="rounded" src="{{ asset($image->img_path) }}" style="margin-bottom:0px;"
+                                        alt="personal image">
                                     <div class="img-title-sec">
                                         <div class="img-float-title-container">
                                             <p class="img-title">
-                                                {{$image->status}}
+                                                {{ $image->status }}
                                             </p>
                                         </div>
+                                        @if ($darlingOnWatching == false)
+                                        <i id="{{ $image->id }}"
+                                            class="fa-solid fa-trash-can fa-2xl delete-icon"></i>
+                                        @endif
+
                                     </div>
                                 </div>
                             @endforeach
@@ -157,10 +187,9 @@
     {{-- @include('templates.settings.infoSetting') --}}
     @extends('layouts.footer')
     @include('layouts.profile.profileLayoutsScript')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js">
-    </script>
+
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $('#loading').hide();
 
         });
@@ -203,7 +232,8 @@
 
         window.addEventListener('user-avatar-updated-complete', event => {
             $('#accept-avatar-modal').modal('hide');
-            $('#profile-avatar').attr('src', event.detail.avatarData['avatar_url']);
+            location.reload();
+            // $('#profile-avatar').attr('src', event.detail.avatarData['avatar_url']);
         });
 
         $('#accept-avatar-modal-close').on('click', function(e) {
@@ -214,6 +244,31 @@
         $('#upload-avatar-btn').on('click', function(e) {
             Livewire.emit('avatarUploaded');
         });
+
+        $('.delete-icon').on('click', function(e) {
+            var imageId = $(this).attr('id');
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('profile.deleteImage') }}',
+                data: {
+                    id: imageId,
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(data) {
+                    console.log('data response : ', JSON.stringify(data));
+                    if(data['error']==0){
+                        $('#toast-success-text').text('Xóa ảnh thành công nè!');
+                        $('#notification-success').toast('show');
+                        $(`#image-${imageId}`).hide();
+                    }else{
+                        $('#toast-success-text').text('Ơ, bị lỗi rồi, thử xóa lại nha!');
+                        $('#notification-fail').toast('show');
+                    }
+                }
+
+            });
+        })
     </script>
 
 </body>

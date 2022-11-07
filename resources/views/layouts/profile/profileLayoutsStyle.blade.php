@@ -6,6 +6,7 @@
     href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons">
 <link rel="stylesgeet" href="https://rawgit.com/creativetimofficial/material-kit/master/assets/css/material-kit.css">
 
-<link rel="stylesheet" type="text/css" href="{{ asset('front/css/profile/index.css?v=').time() }}">
-<link rel="stylesheet" type="text/css" href="{{ asset('front/css/profile/info-setting.css?v=').time() }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('front/css/profile/index.css?v=') . time() }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('front/css/profile/info-setting.css?v=') . time() }}">
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">

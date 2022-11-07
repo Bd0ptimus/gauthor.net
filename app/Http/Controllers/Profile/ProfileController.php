@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Profile;
 use Illuminate\Routing\Controller as BaseController;
 use App\Http\Controllers\Helper\Util;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\LOG;
+
 use Illuminate\Http\Request;
 
 //services
@@ -45,6 +47,17 @@ class ProfileController extends BaseController
             ]); //->with(['userProfile'=> $userProfile,'userAvatar'=>$userAvatar]);
         }
         return redirect()->back();
+    }
+
+    public function deleteImage(){
+        $imageId = request('id');
+        LOG::debug('Deleting image : '.$imageId);
+        try{
+            $this->imgService->deleteImage($imageId);
+        }catch(Exception $e){
+            response()->json(['error' => 1, 'msg' => 'Đã có lỗi']);
+        }
+        return response()->json(['error' => 0, 'msg' => 'Xóa thành công']);
     }
 
     public function darling(Request $request, $darlingId){
