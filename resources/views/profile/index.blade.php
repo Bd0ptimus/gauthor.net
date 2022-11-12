@@ -121,7 +121,7 @@
                             @include('layouts.loadingIcon')
                         </div>
                         <div class="row" id="user-image-album">
-                            {{-- @foreach ($userImages as $image)
+                            @foreach ($userImages as $image)
                                 <div class="img-container" id="image-{{ $image->id }}">
                                     <img class="rounded" src="{{ asset($image->img_path) }}" style="margin-bottom:0px;"
                                         alt="personal image">
@@ -138,7 +138,7 @@
 
                                     </div>
                                 </div>
-                            @endforeach --}}
+                            @endforeach
                         </div>
                     </div>
 
