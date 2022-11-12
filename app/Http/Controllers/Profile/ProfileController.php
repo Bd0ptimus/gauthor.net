@@ -55,6 +55,7 @@ class ProfileController extends BaseController
         // LOG::debug('avatar : ' . print_r($request->avatarUpload,true));
         // LOG::debug('avatar after upload : ' . $this->imgService->storeAvatar($userId, $request->avatarUpload));
         try{
+            LOG::debug('image uploaded : ' . print_r($request->avatarUpload,true) );
             $imgUpload= $this->imgService->storeAvatar($userId, $request->avatarUpload);
         }catch(Exception $e){
             response()->json(['error' => 1, 'msg' => 'Đã có lỗi']);
