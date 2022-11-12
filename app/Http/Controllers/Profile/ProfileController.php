@@ -65,7 +65,7 @@ class ProfileController extends BaseController
 
     public function deleteImage(){
         $imageId = request('id');
-        // LOG::debug('Deleting image : '.$imageId);
+        // LOG::debug('Deleting image : '.$imageId1);
         try{
             $this->imgService->deleteImage($imageId);
         }catch(Exception $e){

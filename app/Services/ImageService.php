@@ -55,6 +55,9 @@ class ImageService
     public function storeAvatar($userId, $image)
     {
         $imgName = $this->generateName() . '.' . $image->extension();
+        LOG::debug('generate name : ' . $this->generateName() );
+        LOG::debug('extension name : ' . $image->extension() );
+        LOG::debug('name : ' . $imgName  );
         $image->move(storage_path('app/public/images'), $imgName);
         LOG::debug('image name : ' . $imgName);
         return $this->setAvatar($userId, $imgName);
