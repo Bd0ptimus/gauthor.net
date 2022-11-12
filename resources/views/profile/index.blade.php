@@ -243,6 +243,7 @@
         });
 
         $('#picture-btn').on('click', function() {
+
             $('#user-image-album').empty();
             $.ajax({
                 type: 'get',
@@ -335,6 +336,7 @@
         })
 
         $('#upload-avatar-btn').on('click', function() {
+            $('#uploading').show();
             var imageTest = document.getElementById('avatarUpload').files;
             // console.log('imageTest : ', imageTest);
 
@@ -360,10 +362,12 @@
                     $('#accept-avatar-modal').modal('hide');
                     $('#profile-avatar').attr('src', response.new_avt);
                     $('#settingInfoAvatar').attr('src', response.new_avt);
-
+                    $('#uploading').hide();
                 },
                 error: function(response) {
-                    $('#image-input-error').text(response.responseJSON.message);
+                    $('#accept-avatar-modal').modal('hide');
+                    $('#avatar-upload-warning').text("Bị lỗi rùi, thử lại nha");
+                    $('#uploading').hide();
                 }
             });
 
