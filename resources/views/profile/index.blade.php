@@ -117,8 +117,11 @@
 
                     <div class="tab-pane active text-center gallery" id="picture"
                         @if ($darlingOnWatching) style="display:block;" @else style="display:none;" @endif>
+                        <div class="row" style="width:100%; position:relative; height : 300px; display:none; margin:auto;" id="user-image-loading-icon">
+                            @include('layouts.loadingIcon')
+                        </div>
                         <div class="row" id="user-image-album">
-                            @foreach ($userImages as $image)
+                            {{-- @foreach ($userImages as $image)
                                 <div class="img-container" id="image-{{ $image->id }}">
                                     <img class="rounded" src="{{ asset($image->img_path) }}" style="margin-bottom:0px;"
                                         alt="personal image">
@@ -135,7 +138,7 @@
 
                                     </div>
                                 </div>
-                            @endforeach
+                            @endforeach --}}
                         </div>
                     </div>
 
@@ -243,7 +246,7 @@
         });
 
         $('#picture-btn').on('click', function() {
-
+            $('#user-image-loading-icon').show();
             $('#user-image-album').empty();
             $.ajax({
                 type: 'get',
@@ -265,12 +268,13 @@
                                         </div>
                                         @if ($darlingOnWatching == false)
                                             <i id="${e.id}"
-                                                class="fa-solid fa-trash-can fa-2xl delete-icon"></i>
+                                                class="fa-solid fa-trash-can fa-2xl delete-icon" onclick="deleteImage(${e.id})"></i>
                                         @endif
 
                                     </div>
                                 </div>`);
                     });
+                    $('#user-image-loading-icon').hide();
                 },
                 error: function(response) {
                     $('#image-input-error').text(response.responseJSON.message);
@@ -310,8 +314,8 @@
         //     Livewire.emit('avatarUploaded');
         // });
 
-        $('.delete-icon').on('click', function(e) {
-            var imageId = $(this).attr('id');
+        function deleteImage(imageId){
+            console.log('delete-icon-click');
 
             $.ajax({
                 method: 'post',
@@ -333,7 +337,8 @@
                 }
 
             });
-        })
+        }
+
 
         $('#upload-avatar-btn').on('click', function() {
             $('#uploading').show();
