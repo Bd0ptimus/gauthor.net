@@ -41,7 +41,7 @@ class SettingPage extends Component
     }
 
     public function init(){
-        $user = User::find(Admin::user()->id);
+        $user = User::find(Admin::user() !== null? Admin::user()->id:null);
         $this->userName = $user->name;
         $this->userNickname = $user->nickname;
         $this->userDob = $user->dob;

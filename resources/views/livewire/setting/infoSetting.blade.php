@@ -20,7 +20,7 @@
                             <div class="avatar" style="bottom:50px;">
                                 {{-- <img src="{{asset('front/images/icons/login-icon/login.jpg')}}"
                                     alt="Circle Image" class="img-raised rounded-circle img-fluid"> --}}
-                                <img src="{{ asset(isset($userAvatar) ? $userAvatar->img_path : '') }}" alt="100x100"
+                                <img src="{{ asset(isset($userAvatar) ? $userAvatar->img_path : '') }}" id="settingInfoAvatar" alt="100x100"
                                     class="" data-holder-rendered="true">
                             </div>
                         </div>
@@ -30,12 +30,17 @@
                     <div class="row d-flex justify-content-center">
                         <div class="upload-btn-wrapper">
                             <button class="info-settting-upload-btn">Upload ảnh</button>
-                            <input type="file" wire:model="photoUpload" accept=".jpg, .jpeg, .png, .mov"/>
+                            {{-- <input type="file" wire:model="photoUpload" accept=".jpg, .jpeg, .png, .mov" />
                             <div wire:loading wire:target="photoUpload">
                                 <!--Upload image loading screen-->
                                 @include('layouts.loadingModalWithLivewire')
-                            </div>
+                            </div> --}}
+                            <input type="file" name="avatarUpload" placeholder="Choose image" id="avatarUpload">
+
                         </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <span class="text-danger error-text" id="avatar-upload-warning" ></span>
                     </div>
                 </form>
 
@@ -46,7 +51,7 @@
                         </div>
                         <div class="col-xs-7 h-100 m-0">
                             <input required wire:model="userName" maxlength="25" type="text"
-                                class="form-control h-100" style="border:0px;"/>
+                                class="form-control h-100" style="border:0px;" />
                         </div>
                     </div>
                     <div class="row my-2" style="height:30px;">
@@ -54,7 +59,8 @@
                             <h5 class="mt-3">Biệt danh </h5>
                         </div>
                         <div class="col-xs-7 h-100 m-0">
-                            <input maxlength="55" type="text" class="form-control h-100" wire:model="userNickname" style="border:0px;"/>
+                            <input maxlength="55" type="text" class="form-control h-100" wire:model="userNickname"
+                                style="border:0px;" />
                         </div>
                     </div>
                     <div class="row my-2" style="height:30px;">
@@ -62,7 +68,8 @@
                             <h5 class="mt-3">Ngày sinh </h5>
                         </div>
                         <div class="col-xs-7 h-100 m-0">
-                            <input type="date" class="form-control h-100" required wire:model="userDob"  style="border:0px;">
+                            <input type="date" class="form-control h-100" required wire:model="userDob"
+                                style="border:0px;">
                         </div>
                     </div>
                     <div class="row mt-2" style="height:30px;">
@@ -72,24 +79,25 @@
                     </div>
                     <div class="row d-flex justify-content-center">
                         <div class="col-md-9 h-100">
-                            <textarea class="form-control" rows="3" wire:model="userQuote"  style="border:0px;"></textarea>
+                            <textarea class="form-control" rows="3" wire:model="userQuote" style="border:0px;"></textarea>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center">
                         @error('userName')
-                            <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger error-text">{{ $message }}</span>
                         @enderror
                         @error('userDob')
-                            <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger error-text">{{ $message }}</span>
                         @enderror
-                        @error('photoUpload')
+                        {{-- @error('photoUpload')
                             <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        @enderror --}}
                     </div>
 
 
                     <div class="modal-footer d-flex justify-content-center">
-                        <button id="submit-btn" type="submit" type="button" class="btn modal-btn">Lưu thay đổi</button>
+                        <button id="submit-btn" type="submit" type="button" class="btn modal-btn">Lưu thay
+                            đổi</button>
                     </div>
                 </form>
 
@@ -97,11 +105,11 @@
         </div>
     </div>
 
-
-
-
-
     <style>
+
+        .error-text{
+            font-size:13px;
+        }
         #setting-modal-container {
             border-radius: 6px;
         }
@@ -168,8 +176,6 @@
                     <button id="upload-avatar-btn" type="button" class="btn modal-btn">Đặt ảnh này làm
                         avatar</button>
                 </div>
-
-
             </div>
         </div>
     </div>

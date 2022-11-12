@@ -2,9 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Closure;
+use Illuminate\Http\Request;
 use App\Admin;
-class Authenticate extends Middleware
+
+class AuthUser
 {
     /**
      * Handle an incoming request.
@@ -13,11 +15,12 @@ class Authenticate extends Middleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    protected function redirectTo($request)
+    public function handle(Request $request, Closure $next)
     {
-        if (Admin::user() == null) {
+
+        if(Admin::user()==null){
             return route('main');
         }
-        return;
+        return $next($request);
     }
 }

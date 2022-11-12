@@ -108,7 +108,7 @@
                                     <div class="align-middle"
                                         style="margin:auto; display:table-cell; vertical-align:middle;">
                                         <p class="darling-row-text">{{ $darlingProfile->name }}</p>
-                                        <p class="darling-row-text" >{{ $darlingProfile->quote }}</p>
+                                        <p class="darling-row-text">{{ $darlingProfile->quote }}</p>
                                     </div>
                                 </div>
                             </a>
@@ -117,7 +117,7 @@
 
                     <div class="tab-pane active text-center gallery" id="picture"
                         @if ($darlingOnWatching) style="display:block;" @else style="display:none;" @endif>
-                        <div class="row">
+                        <div class="row" id="user-image-album">
                             @foreach ($userImages as $image)
                                 <div class="img-container" id="image-{{ $image->id }}">
                                     <img class="rounded" src="{{ asset($image->img_path) }}" style="margin-bottom:0px;"
@@ -129,8 +129,8 @@
                                             </p>
                                         </div>
                                         @if ($darlingOnWatching == false)
-                                        <i id="{{ $image->id }}"
-                                            class="fa-solid fa-trash-can fa-2xl delete-icon"></i>
+                                            <i id="{{ $image->id }}"
+                                                class="fa-solid fa-trash-can fa-2xl delete-icon"></i>
                                         @endif
 
                                     </div>
@@ -192,16 +192,48 @@
         $(document).ready(function() {
             $('#loading').hide();
 
+            $('#avatarUpload').change(function() {
+                var filesTypesAccept = ['jpg', 'jpeg', 'png', 'gif', 'svg'];
+                console.log('avatarUpload : ', this.files[0]);
+                var extension = this.files[0].name.split('.').pop().toLowerCase();
+                fileExtensionAccept = filesTypesAccept.indexOf(extension) > -1;
+                if (fileExtensionAccept) {
+                    fileSizeAccept = this.files[0].size < 15728640;
+                    if (fileSizeAccept) {
+                        let reader = new FileReader();
+                        reader.onload = (e) => {
+                            // console.log('check name file: ', e.target.result);
+                            $('#accept-avatar-show').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(this.files[0]);
+                        $('#accept-avatar-modal').modal('show');
+                        $('#avatar-upload-warning').text('');
+
+                    } else {
+                        $('#avatar-upload-warning').text(
+                            'Kích thước ảnh lớn quá rùi. Chỉ chấp ảnh tối đa 15Mb thui nhó!');
+                    }
+                } else {
+                    $('#avatar-upload-warning').text('Ủa, chỉ up ảnh thui chớ');
+                }
+
+            });
         });
 
+        function settingModalReset() {
+            $('.error-text').text('');
+
+        }
+
         $('#setting-modal-close').on('click', function(e) {
-            console.log('modal-close');
+            // console.log('modal-close');
             $('#setting-modal-container').modal('hide');
         })
 
         $('#setting-modal-open').on('click', function(e) {
-            console.log('modal active');
+            // console.log('modal active');
             $('.tab-pane').css('display', 'none');
+            settingModalReset();
             $('#setting-modal-container').modal('show');
         })
 
@@ -211,6 +243,38 @@
         });
 
         $('#picture-btn').on('click', function() {
+            $('#user-image-album').empty();
+            $.ajax({
+                type: 'get',
+                url: "{{ route('profile.loadUserImage', ['userId' => $userProfile->id]) }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    // console.log('respose success : ', response);
+                    response.data.images.forEach(function(e){
+                        $('#user-image-album').append(`<div class="img-container" id="image-${e.id}">
+                                    <img class="rounded" src="{{ asset('${e.img_path}') }}" style="margin-bottom:0px;"
+                                        alt="personal image">
+                                    <div class="img-title-sec">
+                                        <div class="img-float-title-container">
+                                            <p class="img-title">
+                                                ${e.status==null?'':e.status}
+                                            </p>
+                                        </div>
+                                        @if ($darlingOnWatching == false)
+                                            <i id="${e.id}"
+                                                class="fa-solid fa-trash-can fa-2xl delete-icon"></i>
+                                        @endif
+
+                                    </div>
+                                </div>`);
+                    });
+                },
+                error: function(response) {
+                    $('#image-input-error').text(response.responseJSON.message);
+                }
+            });
             $('.tab-pane').css('display', 'none');
             $('#picture').css('display', 'block');
         });
@@ -222,28 +286,28 @@
             $('#user-quote').text(event.detail.user['quote']);
         });
 
-        window.addEventListener('user-avatar-updated', (event) => {
-            $('#accept-avatar-modal').modal('show');
-            $('#accept-avatar-show').attr('src', event.detail.avatarData['avatar']);
-            $('#accept-avatar-modal-title').text(event.detail.avatarData['modal-title']);
-            $('#uploading').hide();
+        // window.addEventListener('user-avatar-updated', (event) => {
+        //     $('#accept-avatar-modal').modal('show');
+        //     $('#accept-avatar-show').attr('src', event.detail.avatarData['avatar']);
+        //     $('#accept-avatar-modal-title').text(event.detail.avatarData['modal-title']);
+        //     $('#uploading').hide();
 
-        });
+        // });
 
-        window.addEventListener('user-avatar-updated-complete', event => {
-            $('#accept-avatar-modal').modal('hide');
-            location.reload();
-            // $('#profile-avatar').attr('src', event.detail.avatarData['avatar_url']);
-        });
+        // window.addEventListener('user-avatar-updated-complete', event => {
+        //     $('#accept-avatar-modal').modal('hide');
+        //     location.reload();
+        //     // $('#profile-avatar').attr('src', event.detail.avatarData['avatar_url']);
+        // });
 
         $('#accept-avatar-modal-close').on('click', function(e) {
             $('#accept-avatar-modal').modal('hide');
 
         })
 
-        $('#upload-avatar-btn').on('click', function(e) {
-            Livewire.emit('avatarUploaded');
-        });
+        // $('#upload-avatar-btn').on('click', function(e) {
+        //     Livewire.emit('avatarUploaded');
+        // });
 
         $('.delete-icon').on('click', function(e) {
             var imageId = $(this).attr('id');
@@ -257,17 +321,53 @@
                 },
                 success: function(data) {
                     console.log('data response : ', JSON.stringify(data));
-                    if(data['error']==0){
+                    if (data['error'] == 0) {
                         $('#toast-success-text').text('Xóa ảnh thành công nè!');
                         $('#notification-success').toast('show');
                         $(`#image-${imageId}`).hide();
-                    }else{
+                    } else {
                         $('#toast-success-text').text('Ơ, bị lỗi rồi, thử xóa lại nha!');
                         $('#notification-fail').toast('show');
                     }
                 }
 
             });
+        })
+
+        $('#upload-avatar-btn').on('click', function() {
+            var imageTest = document.getElementById('avatarUpload').files;
+            // console.log('imageTest : ', imageTest);
+
+            var image = $('#avatarUpload').prop('files');
+            // console.log('check image : ', image);
+
+            let formData = new FormData();
+            let file = image[0];
+            formData.append('avatarUpload', file);
+            // console.log('form data : ', formData);
+            $.ajax({
+                type: 'post',
+                url: "{{ route('profile.setting.upload_avatar', ['userId' => $userProfile->id]) }}",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log('respose success');
+                    $('#accept-avatar-modal').modal('hide');
+                    $('#profile-avatar').attr('src', response.new_avt);
+                    $('#settingInfoAvatar').attr('src', response.new_avt);
+
+                },
+                error: function(response) {
+                    $('#image-input-error').text(response.responseJSON.message);
+                }
+            });
+
+
         })
     </script>
 

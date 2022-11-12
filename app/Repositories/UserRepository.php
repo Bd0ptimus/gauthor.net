@@ -10,7 +10,7 @@ use App\Models\ForgotPassword;
 /**
  * Class UserRepository.
  */
-class UserRepository //extends BaseRepository
+class UserRepository extends BaseRepository
 {
     protected $model;
     public function __construct(User $model)

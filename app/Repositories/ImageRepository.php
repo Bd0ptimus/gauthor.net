@@ -8,11 +8,12 @@ use App\Repositories\BaseRepository;
 use App\Models\Images;
 use App\Models\ForgotPassword;
 use App\Admin;
-
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\LOG;
 /**
  * Class UserRepository.
  */
-class ImageRepository //extends BaseRepository
+class ImageRepository extends BaseRepository
 {
     protected $model;
     public function __construct(Images $model)
@@ -45,13 +46,17 @@ class ImageRepository //extends BaseRepository
 
         return $this->model->create([
             'user_id'=>$userId,
-            'img_path'=>'storage/'.explode('/',$imageNewPath)[1],
+            'img_path'=>'storage/images/'.$imageNewPath,
             'img_type'=>IMAGE_AVATAR,
         ]);
     }
 
     public function deleteImage($imageId){
-        $this->model->find($imageId)->delete();
+        $image=$this->model->find($imageId);
+        if(File::exists(public_path($image->img_path))){
+            File::delete(public_path($image->img_path));
+        }
+        $image->delete();
     }
 
 }

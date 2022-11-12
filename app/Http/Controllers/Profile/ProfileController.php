@@ -24,6 +24,7 @@ class ProfileController extends BaseController
     protected $imgService;
     public function __construct(UserService $userService,
     ImageService $imgService){
+        $this->middleware('checkuserlogin');
         $this->userService = $userService;
         $this->imgService = $imgService;
     }
@@ -46,18 +47,40 @@ class ProfileController extends BaseController
 
             ]); //->with(['userProfile'=> $userProfile,'userAvatar'=>$userAvatar]);
         }
-        return redirect()->back();
+        return redirect()->route('auth.login');
+    }
+
+    public function uploadAvatar(Request $request, $userId){
+        // LOG::debug('user id : ' . $userId);
+        // LOG::debug('avatar : ' . print_r($request->avatarUpload,true));
+        // LOG::debug('avatar after upload : ' . $this->imgService->storeAvatar($userId, $request->avatarUpload));
+        try{
+            $imgUpload= $this->imgService->storeAvatar($userId, $request->avatarUpload);
+        }catch(Exception $e){
+            response()->json(['error' => 1, 'msg' => 'Đã có lỗi']);
+        }
+        return response()->json(['error' => 0, 'msg' => 'Xóa thành công', 'new_avt'=>asset($imgUpload->img_path)]);
+
     }
 
     public function deleteImage(){
         $imageId = request('id');
-        LOG::debug('Deleting image : '.$imageId);
+        // LOG::debug('Deleting image : '.$imageId);
         try{
             $this->imgService->deleteImage($imageId);
         }catch(Exception $e){
             response()->json(['error' => 1, 'msg' => 'Đã có lỗi']);
         }
         return response()->json(['error' => 0, 'msg' => 'Xóa thành công']);
+    }
+
+    public function loadUserImages(Request $request, $userId){
+        try{
+            $data = $this->imgService->takeAllImagesOfUser($userId);
+        }catch(Exception $e){
+            response()->json(['error' => 1, 'msg' => 'Đã có lỗi']);
+        }
+        return response()->json(['error' => 0, 'msg' => 'Lấy ảnh thành công', 'data'=>$data]);
     }
 
     public function darling(Request $request, $darlingId){
