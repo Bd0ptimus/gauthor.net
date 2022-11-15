@@ -75,6 +75,29 @@ class ProfileController extends BaseController
         return response()->json(['error' => 0, 'msg' => 'Xóa thành công']);
     }
 
+    public function setAvatar(){
+        $imageId = request('id');
+        try{
+            $newAvatar=$this->imgService->setExistedImgAsAvatar($imageId);
+        }catch(Exception $e){
+            response()->json(['error' => 1, 'msg' => 'Đã có lỗi']);
+        }
+        return response()->json(['error' => 0, 'msg' => 'Đổi avatar thành công']);
+    }
+
+    public function checkDetailImage(){
+        $imageId = request('id');
+        try{
+            $image=$this->imgService->takeImageById($imageId);
+        }catch(Exception $e){
+            response()->json(['error' => 1, 'msg' => 'Đã có lỗi']);
+        }
+        return response()->json(['error' => 0,
+        'msg' => 'Lấy thông tin ảnh thành công',
+        'img_url'=>asset($image->img_path),
+        'img_status'=>$image->status??'']);
+    }
+
     public function loadUserImages(Request $request, $userId){
         try{
             $data = $this->imgService->takeAllImagesOfUser($userId);

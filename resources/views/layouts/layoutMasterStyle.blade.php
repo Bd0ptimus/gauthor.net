@@ -39,7 +39,7 @@
 <link rel="stylesheet" href="{{ asset('front/css/owl.theme.default.min.css') }}">
 
 <!-- Theme style  -->
-<link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/style.css?v=').time() }}">
 
 <link href="{{ asset('front/css/app.css') }}" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{{ asset('/front/css/nav-bar/navbar.css') }}">

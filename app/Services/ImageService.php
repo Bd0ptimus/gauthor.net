@@ -37,6 +37,18 @@ class ImageService
         $this->imgRepo->deleteImage($imageId);
     }
 
+    public function setExistedImgAsAvatar($imageId){
+        DB::beginTransaction();
+        try{
+            $newAvatar= $this->imgRepo->setExistedImgAsAvatar($imageId);
+            DB::commit();
+            return $newAvatar;
+        }catch(Exception $e){
+            LOG::debug('Error in set existed img as avatar : '. $e);
+            DB::rollBack();
+        }
+    }
+
     private function generateName()
     {
         $length = 20;
@@ -65,6 +77,10 @@ class ImageService
 
     public function takeAllImagesOfUser($userId){
         return $this->userRepo->findById($userId,['*'], ['images']);
+    }
+
+    public function takeImageById($imageId){
+        return $this->imgRepo->findById($imageId,['*']);
     }
 
     public function takeAvatar($userId)

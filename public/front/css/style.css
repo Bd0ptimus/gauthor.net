@@ -1931,3 +1931,44 @@
 .align-middle{
     vertical-align:middle;
 }
+
+.image-showing-sec{
+    width : 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 10px;
+    position: relative;
+}
+
+.image-showing{
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+}
+
+
+@media (max-width:5000px){
+    .image-showing-sec{
+        height : 500px;
+    }
+}
+
+@media (max-width:1020px){
+    .image-showing-sec{
+        height : 400px;
+    }
+}
+
+@media (max-width:768px){
+    .image-showing-sec{
+        height : 300px;
+    }
+}
+
+@media (max-width:500px){
+    .image-showing-sec{
+        height : 200px;
+    }
+}

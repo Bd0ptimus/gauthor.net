@@ -184,7 +184,6 @@ a .material-icons {
     overflow: hidden;
     border-radius: 5px;
     background-color: black;
-    overflow: hidden;
 }
 
 .img-container:hover{
@@ -213,17 +212,37 @@ a .material-icons {
     cursor: pointer;
 }
 
-.delete-icon{
+/* .delete-icon{
     position: absolute;
     bottom: 15px;
-    right: 5px;
+    left: 50%;
+    transform: translateX(-50%);
     color: #fff;
     visibility: hidden;
     transition: opacity .2s, visibility .2s;
     cursor: pointer;
+} */
+
+.action-bar{
+    position: absolute;
+    width: 100%;
+    top : 90%;
+
 }
 
 .delete-icon:hover{
+    color : #ff64b8;
+    transition: 0.8s;;
+}
+
+
+.setavatar-icon:hover{
+    color : #ff64b8;
+    transition: 0.8s;;
+}
+
+
+.detail-icon:hover{
     color : #ff64b8;
     transition: 0.8s;;
 }
@@ -281,6 +300,10 @@ a .material-icons {
         font-size: 13px;
     }
 
+    .action-bar{
+        left:60%;
+        transform: translateX(-50%);
+    }
 }
 
 @media (max-width:1020px){
@@ -301,6 +324,10 @@ a .material-icons {
     .img-title{
         font-size: 12px;
     }
+    .action-bar{
+        left:60%;
+        transform: translateX(-50%);
+    }
 }
 
 @media (max-width:768px){
@@ -320,6 +347,10 @@ a .material-icons {
     .img-title{
         font-size: 11px;
     }
+    .action-bar{
+        left:50%;
+        transform: translateX(-60%);
+    }
 }
 
 @media (max-width:500px){
@@ -331,6 +362,11 @@ a .material-icons {
 
     .img-title{
         font-size: 11px;
+    }
+
+    .action-bar{
+        left:65%;
+        transform: translateX(-50%);
     }
 }
 

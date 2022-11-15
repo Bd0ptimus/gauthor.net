@@ -51,6 +51,25 @@ class ImageRepository extends BaseRepository
         ]);
     }
 
+    public function setExistedImgAsAvatar($imageId){
+        $currentAvatar = $this->model->where(
+            [
+            'user_id'=> Admin::user()->id,
+            'img_type'=>IMAGE_AVATAR,
+            ]
+        )->first();
+        if($currentAvatar){
+            $currentAvatar->update([
+                'img_type'=>IMAGE_PERSONAL,
+            ]);
+        }
+
+        $newAvatar = $this->model->where('id', $imageId)->first()->update([
+            'img_type'=>IMAGE_AVATAR,
+        ]);
+        return $newAvatar;
+    }
+
     public function deleteImage($imageId){
         $image=$this->model->find($imageId);
         if(File::exists(public_path($image->img_path))){

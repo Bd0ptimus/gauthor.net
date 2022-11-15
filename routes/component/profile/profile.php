@@ -9,6 +9,8 @@ Route::group(['prefix' => 'profile'], function($route){
     $route->get('/', [ ProfileController::class, 'index'])->name('profile.index');
     $route->get('/darling/{darling_id}', [ ProfileController::class, 'darling'])->name('profile.darling');
     $route->post('/delete-image', [ ProfileController::class, 'deleteImage'])->name('profile.deleteImage');
+    $route->post('/set-avatar', [ ProfileController::class, 'setAvatar'])->name('profile.setAvatar');
+    $route->post('/check-detail', [ ProfileController::class, 'checkDetailImage'])->name('profile.checkDetailImage');
     $route->get('{userId}/loadImages',[ProfileController::class, 'loadUserImages'])->name('profile.loadUserImage');
     $route->group(['prefix' => 'setting'], function ($route){
         $route->any('/', [ ForgotPasswordController::class, 'index'])->name('profile.setting.update');
