@@ -19,7 +19,7 @@ class AuthUser
     {
 
         if(Admin::user()==null){
-            return route('main');
+            return redirect()->route('main');
         }
         return $next($request);
     }
