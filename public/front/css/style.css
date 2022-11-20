@@ -1963,12 +1963,12 @@
 
 @media (max-width:768px){
     .image-showing-sec{
-        height : 300px;
+        height : 600px;
     }
 }
 
 @media (max-width:500px){
     .image-showing-sec{
-        height : 200px;
+        height : 500px;
     }
 }

@@ -1,6 +1,6 @@
 <div class="modal fade clearfix px-5" id="watchImage-modal-container" tabindex="-1" role="dialog"
     aria-labelledby="watchImageModalContainer" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered " role="document" style="max-width: 1000px;">
+    <div class="modal-dialog modal-dialog-centered " role="document" style="max-width: 1500px; width : 100%; ">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
