@@ -131,12 +131,14 @@
                                                 {{ $image->status }}
                                             </p>
                                         </div>
-                                        @if ($darlingOnWatching == false)
-                                            <i id="{{ $image->id }}"
-                                                class="fa-solid fa-trash-can fa-2xl delete-icon"></i>
-                                            <i class="fa-solid fa-image-portrait"></i>
-                                        @endif
-
+                                        <div class="row d-flex justify-content-between action-bar">
+                                            @if ($darlingOnWatching == false)
+                                                <i id="{{ $image->id }}"
+                                                    class="fa-solid fa-trash-can fa-2xl delete-icon"></i>
+                                                <i class="fa-solid fa-image-portrait"></i>
+                                            @endif
+                                            <i class="fa-solid fa-bars fa-2xl detail-icon" onclick="checkDetail({{$image->id}})"></i>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -227,7 +229,6 @@
 
         function settingModalReset() {
             $('.error-text').text('');
-
         }
 
         $('#setting-modal-close').on('click', function(e) {
@@ -248,6 +249,10 @@
         });
 
         $('#picture-btn').on('click', function() {
+            loadImageAlbum();
+        });
+
+        function loadImageAlbum(){
             $('#user-image-loading-icon').show();
             $('#user-image-album').empty();
             $.ajax({
@@ -268,14 +273,15 @@
                                                 ${e.status==null?'':e.status}
                                             </p>
                                         </div>
-                                        @if ($darlingOnWatching == false)
-                                            <div class="row d-flex justify-content-between action-bar">
+                                        <div class="row d-flex justify-content-between action-bar">
+                                            @if ($darlingOnWatching == false)
                                                 <i id="${e.id}" class="fa-solid fa-trash-can fa-2xl delete-icon" onclick="deleteImage(${e.id})"></i>
                                                 <i class="fa-solid fa-image-portrait fa-2xl setavatar-icon" onclick="setAvatar(${e.id})"></i>
-                                                <i class="fa-solid fa-bars fa-2xl detail-icon" onclick="checkDetail(${e.id})"></i>
-                                            </div>
+                                            @endif
+                                            <i class="fa-solid fa-bars fa-2xl detail-icon" onclick="checkDetail(${e.id})"></i>
+                                        </div>
 
-                                        @endif
+
 
                                     </div>
                                 </div>`);
@@ -288,7 +294,7 @@
             });
             $('.tab-pane').css('display', 'none');
             $('#picture').css('display', 'block');
-        });
+        }
 
         window.addEventListener('user-info-setting-updated', event => {
             $('#user-name').text(event.detail.user['name']);
@@ -346,6 +352,7 @@
         }
 
         function checkDetail(imageId){
+            console.log('in check detail image');
             $.ajax({
                 method: 'post',
                 url: '{{ route('profile.checkDetailImage') }}',
@@ -356,12 +363,8 @@
                 success: function(data) {
                     console.log('data response : ', JSON.stringify(data));
                     if (data['error'] == 0) {
-                        $('#watchImageShow').attr('src',data.img_url);
-                        $('#watchImageStatus').text(data.img_status);
+                        watchImageModalStart(data.img_url, imageId, data.img_status);
                         $('#watchImage-modal-container').modal('show');
-                    } else {
-                        // $('#toast-success-text').text('Ơ, bị lỗi rồi, thử xóa lại nha!');
-                        // $('#notification-fail').toast('show');
                     }
                 }
 

@@ -21,6 +21,7 @@
                             id="watchImageShow" alt="image" class="" data-holder-rendered="true">
                     </div>
                 </div>
+                @if ($darlingOnWatching == false)
                 <div class="row d-block justify-content-center" style="margin: 30px 0px;">
                     <div class="row justify-content-center" id="watchImage-nonEdit_status" style="display:block;">
                         <div class="row" style="width: auto; margin: 10px auto;">
@@ -35,14 +36,14 @@
 
                     <div class="row justify-content-center" id="watchImage-editing_status" style="display:none;">
                         <div class="row d-flex justify-content-center" style="width: 100%; margin: 10px auto;">
-                            <textarea class="form-control watchImage-status-form" rows="3" style="border:0px; margin: auto;"></textarea>
+                            <textarea id="watchImageStatusField" class="form-control watchImage-status-form" rows="3" style="border:0px; margin: auto;"></textarea>
                         </div>
                         <div class="row d-flex justify-content-center" style="width: 100%; margin: 10px auto;">
-                            <button class="modal-btn" onclick="saveClick()">Lưu status</button>
+                            <button id="watchImageSaveBtn" class="modal-btn">Lưu status</button>
                         </div>
                     </div>
                 </div>
-
+                @endif
             </div>
         </div>
     </div>
@@ -117,7 +118,7 @@
 
     <script type="text/javascript">
 
-        $document.ready(function(){
+        $(document).ready(function(){
             $('#watchImage-nonEdit_status').css("display", "block");
 
         });
@@ -135,8 +136,40 @@
             editEnable();
         }
 
-        function saveClick(){
-            editDisable();
+        function watchImageModalStart(imgUrl, imgId, imgStatus){
+            $('#watchImageShow').attr('src',imgUrl);
+            $('#watchImageSaveBtn').attr('onclick',`saveClick(${imgId})`);
+            $('#watchImageStatus').text(imgStatus);
+            $('#watchImageStatusField').val(imgStatus);
+        }
+
+        function saveClick(imageId){
+            let status = $('#watchImageStatusField').val();
+            console.log('save image id : ', imageId);
+
+            console.log('save btn click- status : ', status);
+
+            $.ajax({
+                method: 'post',
+                url: '{{ route('image.changeStatus') }}',
+                data: {
+                    imageId: imageId,
+                    status : status,
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(data) {
+                    console.log('data response : ', JSON.stringify(data));
+                    if(data.error == 0){
+                        $('#watchImageStatus').text(data.data);
+                        editDisable();
+                        loadImageAlbum();
+                    }else{
+                        editDisable();
+                    }
+                }
+
+            });
+
         }
     </script>
 

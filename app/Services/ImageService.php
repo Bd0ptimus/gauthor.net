@@ -101,4 +101,10 @@ class ImageService
             return null;
         }
     }
+
+    public function changeImageStatus($imageId, $status){
+        Log::debug('in change statu img service');
+        $response = $this->imgRepo->changeImageStatus($imageId, $status);
+        return $response->status ?? null;
+    }
 }

@@ -22,6 +22,8 @@ if (env('APP_ENV') === 'production') {
 
 require_once 'component/auth/auth.php';
 require_once 'component/profile/profile.php';
+require_once 'component/function/image.php';
+
 
 Route::get('/', function(){ /*\Auth::guard('admin')->logout();*/ return view('main'); })->name('main');
 

@@ -78,4 +78,16 @@ class ImageRepository extends BaseRepository
         $image->delete();
     }
 
+    public function changeImageStatus($imageId, $status){
+        $image=$this->model->where('id',$imageId)->first();
+        Log::debug('image found : '. print_r($image, true));
+        if(isset($image)){
+            Log::debug('change status in repo');
+            $image->update([
+                'status'=>$status,
+            ]);
+        }
+        return $image;
+    }
+
 }
