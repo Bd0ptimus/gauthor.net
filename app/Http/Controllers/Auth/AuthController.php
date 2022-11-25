@@ -35,7 +35,7 @@ class AuthController extends BaseController
                 $user = User::where('email', '=', $request->email)->first();
                 if(isset($user)){
                     if(Hash::check($request->password, $user->password)){
-                        Auth::guard('admin')->attempt(['email'=>$request->email,'password'=>$request->password]);
+                        Auth::guard('admin')->attempt(['email'=>$request->email,'password'=>$request->password], true);
                         // dd(Admin::user()->inRoles([ROLE_ADMIN]));
                         return redirect()->route('profile.index');
                     }

@@ -1972,3 +1972,43 @@
         height : 500px;
     }
 }
+
+
+.upload-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+
+.upload-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.normal-button{
+    height:40px;
+    border-radius: 6px;
+    border:0px;
+    font-size: 15px;
+    font-weight : 600;
+    background-color:#ff64b8;
+    color:white;
+    cursor:pointer;
+}
+
+.normal-button:hover{
+    cursor: pointer;
+    transition : 0.5s;
+    background-color:white;
+    color:rgba(102,102,102,.7);
+    border-radius: 6px;
+    border: solid 1px #ff64b8;
+}
+
+.nav-item{
+    cursor: pointer;
+}

@@ -16,9 +16,7 @@ class ImageController extends BaseController
     }
 
     public function changeStatus(Request $request){
-        Log::debug('in change statu : '. request('status'));
         try{
-            Log::debug('in change before response');
             $response = $this->imageService->changeImageStatus(request('imageId'), request('status'));
             if($response==null){
                 return response()->json(['error' => 1, 'msg' => 'Đã có lỗi']);

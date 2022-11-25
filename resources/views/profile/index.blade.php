@@ -58,7 +58,7 @@
                 <div class="row">
                     <div class="col-md-6 ml-auto mr-auto">
                         <div class="profile-tabs">
-                            <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
+                            <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist" style="padding:0px;">
                                 @if ($darlingOnWatching == false)
                                     <li class="nav-item">
                                         <a class="nav-link active pe-auto" id="darling-btn" role="tab"
@@ -117,6 +117,18 @@
 
                     <div class="tab-pane active text-center gallery" id="picture"
                         @if ($darlingOnWatching) style="display:block;" @else style="display:none;" @endif>
+                        @if ($darlingOnWatching == false)
+                        <div class="row d-flex justify-content-center" style="width: 100%; margin:auto;">
+                            <div class="upload-btn-wrapper">
+                                <button class="normal-button" disabled><i
+                                        class="fa-solid fa-upload"></i>
+                                    Upload ảnh</button>
+                                <input type="file" multiple="multiple" name="multiplePhotoUpload[]"
+                                    placeholder="Choose image" id="multiplePhotoUpload"
+                                    class="normal-button" style="width:170px;">
+                            </div>
+                        </div>
+                        @endif
                         <div class="row" style="width:100%; position:relative; height : 300px; display:none; margin:auto;" id="user-image-loading-icon">
                             @include('layouts.loadingIcon')
                         </div>
